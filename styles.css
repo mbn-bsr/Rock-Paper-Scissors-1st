@@ -1,0 +1,43 @@
+*{margin:0;padding:0;}
+
+body{
+    position: relative;    
+}
+p{color: rgb(236, 85, 110);}
+#bg-img {
+    position:absolute;
+    /* border: green 5px solid; */
+    background-position: center center;
+    background-attachment: fixed;
+    background-image: url('Rock-paper-scissors.svg.png'), linear-gradient(30deg, rgb(172, 45, 45), rgb(0, 128, 0));
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+    height: 100vh;
+    width: 100vw;
+    
+} 
+
+#modal {
+    display: none;
+    width: 50%;
+    height: 50%;
+    margin: 0 auto;
+}
+#content {
+    
+}
+
+
+/*
+-instead of entering your move, select an image out of Rock, Paper or Scissors 
+✔-check if the username is valid eg no numbers or exceeding certain characters length
+✔-announce winner after each game
+-how to play button showing how to play
+✔-scoring
+-getting inputs on a modal
+-display winner behind the modal so the main background is not all blank and boring
+-add a game restart button
+*/
+ 
+
