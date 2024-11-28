@@ -1,12 +1,12 @@
 *{margin:0;padding:0;}
 
 body{
-    position: relative;    
+    position: relative;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 }
 p{color: rgb(236, 85, 110);}
 #bg-img {
     position:absolute;
-    /* border: green 5px solid; */
     background-position: center center;
     background-attachment: fixed;
     background-image: url('Rock-paper-scissors.svg.png'), linear-gradient(30deg, rgb(172, 45, 45), rgb(0, 128, 0));
@@ -14,18 +14,46 @@ p{color: rgb(236, 85, 110);}
     background-repeat: no-repeat;
     opacity: 0.2;
     height: 100vh;
-    width: 100vw;
-    
+    width: 100vw;    
 } 
-
 #modal {
-    display: none;
-    width: 50%;
-    height: 50%;
-    margin: 0 auto;
+    position: fixed;
+    top: 10%;right: 10%; bottom: 10%; left: 10%;
+    background-color: rgba(0, 0, 0, 0.473);
+    /* display: none; */
 }
 #content {
-    
+    position: absolute;
+    left: 10%; right: 10%; top:10%; bottom: 10%;
+    background-color: rgb(255, 255, 255);
+}
+#close {
+    float: right;
+    font-weight: bold;
+    background: transparent;
+    border: none;
+    position: absolute;
+    right: 2vh;
+    top: 1vh;
+    z-index: 7;
+    color: black;
+}
+#stuff {
+ text-align: center;
+}
+
+#name-move {
+    padding: 3%;
+}
+
+#ok-btn {
+    padding: 1%;
+    width: 6%;
+}
+
+#input {
+    width: 9%;
+    padding: 1%;
 }
 
 
