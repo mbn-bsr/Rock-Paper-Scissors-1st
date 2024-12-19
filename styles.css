@@ -1,12 +1,21 @@
-*{margin:0;padding:0;}
+* {
+    margin: 0;
+    padding: 0;
+}
 
-body{
+body {
     position: relative;
     font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 }
-p{color: rgb(236, 85, 110);}
+
+p {
+    color: rgb(236, 85, 110);
+    font-size: 1.2rem;
+    font-weight: 800 ;
+}
+
 #bg-img {
-    position:absolute;
+    position: absolute;
     background-position: center center;
     background-attachment: fixed;
     background-image: url('Rock-paper-scissors.svg.png'), linear-gradient(30deg, rgb(172, 45, 45), rgb(0, 128, 0));
@@ -14,19 +23,29 @@ p{color: rgb(236, 85, 110);}
     background-repeat: no-repeat;
     opacity: 0.2;
     height: 100vh;
-    width: 100vw;    
-} 
+    width: 100vw;
+    z-index: -1;
+}
+
 #modal {
     position: fixed;
-    top: 10%;right: 10%; bottom: 10%; left: 10%;
-    background-color: rgba(0, 0, 0, 0.473);
-    /* display: none; */
+    top: 20%;
+    right: 20%;
+    bottom: 20%;
+    left: 20%;
+    background-color: rgba(0, 0, 0, 0);
+    display: none;
 }
+
 #content {
     position: absolute;
-    left: 10%; right: 10%; top:10%; bottom: 10%;
+    left: 10%;
+    right: 10%;
+    top: 10%;
+    bottom: 10%;
     background-color: rgb(255, 255, 255);
 }
+
 #close {
     float: right;
     font-weight: bold;
@@ -38,8 +57,9 @@ p{color: rgb(236, 85, 110);}
     z-index: 7;
     color: black;
 }
-#stuff {
- text-align: center;
+
+#game {
+    text-align: center;
 }
 
 #name-move {
@@ -56,6 +76,11 @@ p{color: rgb(236, 85, 110);}
     padding: 1%;
 }
 
+#playAgainBtn {
+    padding: 1%;
+    z-index: 1;
+    display: none;
+}
 
 /*
 -instead of entering your move, select an image out of Rock, Paper or Scissors 
@@ -67,5 +92,3 @@ p{color: rgb(236, 85, 110);}
 -display winner behind the modal so the main background is not all blank and boring
 -add a game restart button
 */
- 
-

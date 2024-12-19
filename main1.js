@@ -1,105 +1,98 @@
-let userName;
+let title = "Rock Paper Scissors";
+let titleVar = document.getElementById("title");
+let charInd = 0;
 let gameSelect = document.querySelector("#gameSelect");
-let msgPara = document.querySelectorAll("p");
+let gameNum = document.querySelector("#gameNum");
+let p = document.querySelectorAll("p");
 const modalBox = document.getElementById("modal");
 const closeBtn = document.getElementById("close");
 var nameInput = document.getElementById("input");
 const questions = document.getElementById("name-move");
 const okBtn = document.getElementById("ok-btn");
-let playAgainBtn = document.getElementById("playAgainBtn");
-let gameNum = document.querySelector("#gameNum");
-let gameNumVal;
-let gameCounter = 1;
-let userWon = 0;
-let computerWon = 0;
-
-// const popUp = () => {
-//   modalBox.style.display = "block";
-// };
-
-//NEED TO KNOW WHY ITS REPEATING. ONCE FOUND, STOP REPEAT! HIDE BOX OR ASK ON THE MAIN SCREEN IN THE BEGINNING THAT HOW MANY GAMES' BEST OF WOULD THE USER LIKE AGAINST THE COMPUTER. ONCE TAKEN USER INPUT, MAKE THE GAME REPEAT THAT MANY TIMES AND DECLARE THE WINNER IN THE END.
-
-let title = "Rock Paper Scissors";
-let titleVar = document.getElementById("title");
-let charInd = 0;
-
+let toStoreGameNum;
 //INITIAL HEADER BEING TYPED IN
-function titleFunc() {
+titleFunc = () => {
   if (charInd < title.length) {
     titleVar.textContent += title.charAt(charInd);
     charInd++;
     setTimeout(titleFunc, 100);
   }
-}
+};
 titleFunc();
 
-let gameQ = `How many games' set would you like to play?`;
-let charInd1 = 0;
-function NumberOfGames() {
-  if (charInd1 < gameQ.length) {
-    //console.log(`charInd1 is ${charInd1}`);
-    gameSelect.textContent += gameQ.charAt(charInd1);
-    charInd1++;
-    setTimeout(NumberOfGames, 30);
+// Toggle display between 'none' and 'block'
+function toggleNumberOfGames() {
+  if (gameSelect.style.display === "none") {
+    gameSelect.style.display = "block";
+  } else {
+    gameSelect.style.display = "none";
   }
 }
-setTimeout(NumberOfGames, 5000);
-///[a-zA-Z.*+?><,#^=!:${}()|\[\]\/\\]+/g
+// Start the interval to toggle display every 500ms
+let gameNumbersToggle = setInterval(toggleNumberOfGames, 1000);
+
+//Upon pressing Enter I make sure that the input entry is an odd number
 function valCheck(event) {
-  //e.preventDefault();
   if (event.key === "Enter" || event.keyCode === 13) {
     /[^0-9]+/g.test(gameNum.value)
       ? (gameSelect.textContent = "Only numbers please")
       : oddValChecker();
 
     function oddValChecker() {
-      //let result;
-      //gameNum.value%2 ===0 ? false:true;
       if (gameNum.value % 2 === 0) {
         gameSelect.innerText = `To decide a winner please enter an Odd number because you entered ${gameNum.value}`;
         return false;
       } else {
         console.log(gameNum.value);
-        return true;
+        toStoreGameNum = gameNum.value;
+        p[0].innerText = `You chose to play best of ${toStoreGameNum} games`;
+        clearInterval(gameNumbersToggle);
+        let result = gameNum.value;
+        gameNum.value = '';
+        gameSelect.remove();
+        gameNum.remove();
+        return result, enterName();
       }
     }
+    gameNum.value = "";
   } else {
     gameSelect.textContent = "Please press Enter key once entered the number";
-    charInd1 = 0;
   }
-  
-  return gameNum.value, enterName();
 }
+gameNum.addEventListener("keyup", valCheck);
 
-function gamesToPlay() {
-  gameNum.addEventListener("keyup", valCheck);
-}
-gamesToPlay();
-
-//-----The X button
+//Close button to come out of the modal box
 const close = () => {
   modalBox.style.display = "none";
   playAgainBtn.style.display = "block";
 };
 closeBtn.addEventListener("click", close);
 
-//CLEAR INPUT FIELD UPON PAGE RELOAD and ask name
+//Function to display the modal box and to start taking user info
 function enterName() {
-  nameInput.value = '';
+  nameInput.value = "";
   modalBox.style.display = "block";
-  //gameNum.value = "";
-  //document.querySelector("form").reset();
   questions.innerHTML = `Please enter your first name!`;
   clickStart();
 }
-window.onload = () => (gameNum.value = ``);
-// window.onload = enterName();
-// setTimeout(() => {
-//   modalBox.style.display = "block";
-// }, 1000);
+
+function clickStart() {
+  okBtn.addEventListener("click", btnClik);
+}
+
+//Upon clicking the OK button or pressing Enter I check whether the inout is valid
+function btnClik(e) {
+  if (inputValidator(nameInput)) {
+    p[1].innerText = `Player Name: ${nameInput.value}`;
+    checkEntry();
+  } else {
+    clickStart();
+  }
+  e.preventDefault();
+}
 
 //CHECKING WHETHER INPUT IS VALID
-let inputValidator = (val) => {
+function inputValidator(val) {
   val = val.value;
   //console.log(`the value iiiis ${val}`);
   if (val.length > 15 || /[0-9.*+?><,#^=!:${}()|\[\]\/\\]+/g.test(val)) {
@@ -108,29 +101,9 @@ let inputValidator = (val) => {
   } else {
     return true;
   }
-};
-///[^a-z-_]/i
-function btnClik(e) {
-  //inputValidator(nameInput) ? checkEntry() : clickStart();
-  if (inputValidator(nameInput)) {
-    msgPara[1].innerText = `Player Name: ${nameInput.value}`;
-    checkEntry();
-  } else {
-    clickStart();
-  }
-  e.preventDefault();
 }
 
-//TAKING USER'S NAME
-function clickStart() {
-  okBtn.addEventListener("click", btnClik);
-}
-
-let moves = ["rock", "paper", "scissors"];
-let computerMove;
-let userMove;
-
-//RESETTING PAGE AND ASKING USER TO ENTER THEIR MOVE.
+//Asking user to pick their choice, removing previous event listener, adding new one
 function checkEntry() {
   document.querySelector("form").reset();
   questions.innerHTML = "Enter Rock, Paper or Scissors";
@@ -140,8 +113,11 @@ function checkEntry() {
 
 //COMPARING USER'S MOVE VS COMPUTER MOVE
 let i = 1;
-let j = 0;
-let k = 0;
+let userWon = 0;
+let computerWon = 0;
+let moves = ["rock", "paper", "scissors"];
+let computerMove;
+let userMove;
 function compareVals() {
   //inputValidator(nameInput) ? checks() : checkEntry();
   if (inputValidator(nameInput)) {
@@ -158,36 +134,37 @@ function compareVals() {
       //   : (questions.innerHTML = "You lost!");
       if (userWins()) {
         questions.innerText = `You Win`;
-        j++;
+        p[3].innerText = `You win ${userWon+1} out of ${toStoreGameNum}`;
+        userWon++;
       } else {
+        p[4].innerText = `I win ${computerWon+1} out of ${toStoreGameNum}`
         questions.innerText = `You didn't Win. Try again!`;
-        k++;
+        computerWon++;
       }
-      if (i < gameNum.value) {
-        console.log(i, gameNum.value);
+      if (i < toStoreGameNum) {
+        console.log(i, gameNum.value, toStoreGameNum);
         i++;
         checkEntry();
       } else {
         questions.innerHTML = "Good Bye!";
+        nameInput.disabled = true;
         okBtn.disabled = true;
-        j > k
-          ? (msgPara[3].innerHTML = `You win`)
-          : (msgPara[3].innerHTML = `You Lost`);
+        userWon > computerWon
+          ? (p[3].innerHTML = `Final Result, you win because:`)
+          : (p[3].innerHTML = `Final Result, you lost because: `);
       }
       nameInput.value = "";
     } else {
       questions.innerHTML = "Wrong Spellings";
     }
-    console.log("third oi");
   }
-  //okBtn.disabled = 'true';
 }
 
-//FUNCTION TO DECIDE USER VICTORY
+//Determine scenaros when the user wins
 var userWins = () => {
   console.log(`usermove inside userwins is ${userMove}`);
   computerMove = moves[Math.floor(Math.random() * moves.length)];
-  msgPara[2].innerText = `My move: ${computerMove}, your move: ${userMove}`;
+  p[2].innerText = `My move: ${computerMove}, your move: ${userMove}`;
   console.log(`computer move is ${computerMove} and user move is ${userMove}`);
   return (
     (userMove === "rock" && computerMove === "scissors") ||
@@ -196,15 +173,16 @@ var userWins = () => {
   );
 };
 
+
+//To start the game again without reloading the page
+let gameCounter = 1;
 playAgainBtn.addEventListener("click", () => {
-  msgPara[0].innerText = `Set number ${++gameCounter}`;
+  p[0].innerText = `Set number ${++gameCounter}`;
   enterName();
   modalBox.style.display = "block";
   playAgainBtn.style.display = "none";
-  msgPara[1].innerText = ``;
-  msgPara[2].innerText = ``;
+  p[1].innerText = ``;
+  p[2].innerText = ``;
   okBtn.disabled = false;
   location.reload();
 });
-
-//TRY TO ANNOUNCE WHO THE WINNER IS

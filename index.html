@@ -9,26 +9,29 @@
 <body>    
     <div id = 'bg-img'></div>
     <!-- <img src="Rock-paper-scissors.svg.png" alt="rock paper scissors"> -->
-    <h1>Rock Paper Scissors</h1>
+    <h1 id = 'title'></h1>
+    <input id ="gameNum" type="'text" size ='2'>
+    <h3 id="gameSelect">How many games' set would you like to play?</h3>
     <p></p>
     <p></p>
-    <div></div>
     <p></p>
     <p></p>
     <p></p>
     <div id="modal">
         <div id="content">
             <button id="close">&times;</button>
-            <div id="stuff">
-                <h1 id="name-move">Hi! What's your first name?</h1>
+            <div id="game">
+                <h2 id="name-move"></h2>
                 <form action="#">
-                    <input type="text" placeholder="Type here..." id="input" required>
+                    <input type="text" placeholder="Type here..." size = '20' id="input" required>
                     <br><br>
                     <button id="ok-btn">OK</button>
                 </form>
             </div>
         </div>
     </div>
-    <script src ='main.js'></script>
+    <button id="playAgainBtn">Start</button>
+    <!-- <script src ='main.js'></script> -->
+    <script src ='main1.js'></script>
 </body>
 </html>
