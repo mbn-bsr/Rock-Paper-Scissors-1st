@@ -161,8 +161,8 @@ function compareVals() {
         // userWon > computerWon
         //   ? (p[4].textContent = `Final Result; ${userName} wins`)
         //   : (p[4].textContent = `Final Result; ${userName} lost`);
-        if(userWon > computerWon) p[4].textContent = `Final Result; ${userName} wins`;
-        else if(userWon < computerWon) p[4].textContent = `Final Result; ${userName} lost`;
+        if(userWon > computerWon) p[4].textContent = `Final Result: ${userName} wins`;
+        else if(userWon < computerWon) p[4].textContent = `Final Result: ${userName} lost`;
         else p[4].textContent = `Final result is a Draw!`;
       }
       nameInput.value = "";
