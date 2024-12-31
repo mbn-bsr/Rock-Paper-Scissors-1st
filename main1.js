@@ -120,6 +120,7 @@ function checkEntry() {
 let i = 1;
 let userWon = 0;
 let computerWon = 0;
+let draw = 0;
 let moves = ["rock", "paper", "scissors"];
 let computerMove;
 let userMove;
@@ -138,12 +139,16 @@ function compareVals() {
       //   : (questions.innerHTML = "You lost!");
       if (userWins()) {
         questions.textContent = `You Win`;
-        p[2].textContent = `You win ${userWon + 1} out of ${toStoreGameNum}`;
-        userWon++;
-      } else {
-        p[3].textContent = `I win ${computerWon + 1} out of ${toStoreGameNum}`;
-        questions.textContent = `You didn't Win. Try again!`;
-        computerWon++;
+        p[2].textContent = `You win ${++userWon} out of ${toStoreGameNum} and I win ${computerWon}`;
+        //userWon++;
+      } 
+      else if(userMove == computerMove){
+        p[3].textContent = `Total Number of Draws: ${++draw}`;
+      }
+      else {
+        p[2].textContent = `You win ${userWon} out of ${toStoreGameNum} and I win ${++computerWon}`;
+        //questions.textContent = `You didn't Win. Try again!`;
+        //computerWon++;
       }
       if (i < toStoreGameNum) {
         console.log(i, gameNum.value, toStoreGameNum);
@@ -153,9 +158,12 @@ function compareVals() {
         questions.textContent = "Game Over!";
         nameInput.disabled = true;
         okBtn.disabled = true;
-        userWon > computerWon
-          ? (p[4].textContent = `Final Result; ${userName} wins`)
-          : (p[4].textContent = `Final Result; ${userName} lost`);
+        // userWon > computerWon
+        //   ? (p[4].textContent = `Final Result; ${userName} wins`)
+        //   : (p[4].textContent = `Final Result; ${userName} lost`);
+        if(userWon > computerWon) p[4].textContent = `Final Result; ${userName} wins`;
+        else if(userWon < computerWon) p[4].textContent = `Final Result; ${userName} lost`;
+        else p[4].textContent = `Final result is a Draw!`;
       }
       nameInput.value = "";
     } else {
