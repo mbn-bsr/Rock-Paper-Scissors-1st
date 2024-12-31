@@ -140,15 +140,12 @@ function compareVals() {
       if (userWins()) {
         questions.textContent = `You Win`;
         p[2].textContent = `You win ${++userWon} out of ${toStoreGameNum} and I win ${computerWon}`;
-        //userWon++;
       } 
       else if(userMove == computerMove){
         p[3].textContent = `Total Number of Draws: ${++draw}`;
       }
       else {
         p[2].textContent = `You win ${userWon} out of ${toStoreGameNum} and I win ${++computerWon}`;
-        //questions.textContent = `You didn't Win. Try again!`;
-        //computerWon++;
       }
       if (i < toStoreGameNum) {
         console.log(i, gameNum.value, toStoreGameNum);
