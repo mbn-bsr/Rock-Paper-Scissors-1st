@@ -5,13 +5,13 @@
 
 body {
     position: relative;
-    font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    font-family: serif, monospace, 'Trebuchet MS';
 }
-
+h1{color: rgb(25, 195, 195)}
 p {
-    color: rgb(236, 85, 110);
+    color: rgb(234, 10, 47);
     font-size: 1.2rem;
-    font-weight: 800 ;
+    font-weight: 400 ;
 }
 
 #bg-img {
@@ -64,15 +64,16 @@ p {
 
 #name-move {
     padding: 3%;
+    color:rgb(172, 45, 45)
 }
 
 #ok-btn {
     padding: 1%;
-    width: 6%;
+    width: 13%;
 }
 
 #input {
-    width: 9%;
+    /* width: 9%; */
     padding: 1%;
 }
 

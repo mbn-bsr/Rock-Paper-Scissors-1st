@@ -12,6 +12,7 @@
     <h1 id = 'title'></h1>
     <input id ="gameNum" type="'text" size ='2'>
     <h3 id="gameSelect">How many games' set would you like to play?</h3>
+    <!-- I could create p elements dynamically in JS instead of doing the below but since it's a very small app and doing that would require them to be removed each time the user restarts (not page reload) hence, below seems better approach -->
     <p></p>
     <p></p>
     <p></p>
@@ -23,7 +24,7 @@
             <div id="game">
                 <h2 id="name-move"></h2>
                 <form action="#">
-                    <input type="text" placeholder="Type here..." size = '20' id="input" required>
+                    <input type="text" placeholder="Type here..." size = '10' id="input" required>
                     <br><br>
                     <button id="ok-btn">OK</button>
                 </form>

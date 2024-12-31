@@ -1,6 +1,7 @@
 let title = "Rock Paper Scissors";
 let titleVar = document.getElementById("title");
 let charInd = 0;
+let userName = '';
 let gameSelect = document.querySelector("#gameSelect");
 let gameNum = document.querySelector("#gameNum");
 let p = document.querySelectorAll("p");
@@ -40,15 +41,15 @@ function valCheck(event) {
 
     function oddValChecker() {
       if (gameNum.value % 2 === 0) {
-        gameSelect.innerText = `To decide a winner please enter an Odd number because you entered ${gameNum.value}`;
+        gameSelect.textContent = `To decide a winner please enter an Odd number because you entered ${gameNum.value}`;
         return false;
       } else {
         console.log(gameNum.value);
         toStoreGameNum = gameNum.value;
-        p[0].innerText = `You chose to play best of ${toStoreGameNum} games`;
+        p[0].textContent = `You chose to play best of ${toStoreGameNum} games`;
         clearInterval(gameNumbersToggle);
         let result = gameNum.value;
-        gameNum.value = '';
+        gameNum.value = "";
         gameSelect.remove();
         gameNum.remove();
         return result, enterName();
@@ -72,7 +73,8 @@ closeBtn.addEventListener("click", close);
 function enterName() {
   nameInput.value = "";
   modalBox.style.display = "block";
-  questions.innerHTML = `Please enter your first name!`;
+  questions.innerText = `Please enter your\n first name!`;
+  nameInput.focus();
   clickStart();
 }
 
@@ -83,7 +85,10 @@ function clickStart() {
 //Upon clicking the OK button or pressing Enter I check whether the inout is valid
 function btnClik(e) {
   if (inputValidator(nameInput)) {
-    p[1].innerText = `Player Name: ${nameInput.value}`;
+    userName = nameInput.value;
+    //userName = userName.toLowerCase();
+    userName = userName.toUpperCase();
+    p[1].textContent = `Player Name: ${userName}`;
     checkEntry();
   } else {
     clickStart();
@@ -96,7 +101,7 @@ function inputValidator(val) {
   val = val.value;
   //console.log(`the value iiiis ${val}`);
   if (val.length > 15 || /[0-9.*+?><,#^=!:${}()|\[\]\/\\]+/g.test(val)) {
-    questions.innerText = `No numbers, special characters or more than 15 characters allowed`;
+    questions.textContent = `No numbers, special characters or more than 15 characters allowed`;
     return false;
   } else {
     return true;
@@ -106,7 +111,7 @@ function inputValidator(val) {
 //Asking user to pick their choice, removing previous event listener, adding new one
 function checkEntry() {
   document.querySelector("form").reset();
-  questions.innerHTML = "Enter Rock, Paper or Scissors";
+  questions.innerText = "Enter Rock, Paper\n or Scissors";
   okBtn.removeEventListener("click", btnClik);
   okBtn.addEventListener("click", compareVals);
 }
@@ -127,18 +132,17 @@ function compareVals() {
   }
   function checks() {
     userMove = nameInput.value.toLowerCase();
-    console.log(`usermove inside checks is ${userMove}`);
     if (moves.includes(userMove)) {
       // userWins()
       //   ? (questions.innerHTML = "You Win")
       //   : (questions.innerHTML = "You lost!");
       if (userWins()) {
-        questions.innerText = `You Win`;
-        p[3].innerText = `You win ${userWon+1} out of ${toStoreGameNum}`;
+        questions.textContent = `You Win`;
+        p[2].textContent = `You win ${userWon + 1} out of ${toStoreGameNum}`;
         userWon++;
       } else {
-        p[4].innerText = `I win ${computerWon+1} out of ${toStoreGameNum}`
-        questions.innerText = `You didn't Win. Try again!`;
+        p[3].textContent = `I win ${computerWon + 1} out of ${toStoreGameNum}`;
+        questions.textContent = `You didn't Win. Try again!`;
         computerWon++;
       }
       if (i < toStoreGameNum) {
@@ -146,16 +150,16 @@ function compareVals() {
         i++;
         checkEntry();
       } else {
-        questions.innerHTML = "Good Bye!";
+        questions.textContent = "Game Over!";
         nameInput.disabled = true;
         okBtn.disabled = true;
         userWon > computerWon
-          ? (p[3].innerHTML = `Final Result, you win because:`)
-          : (p[3].innerHTML = `Final Result, you lost because: `);
+          ? (p[4].textContent = `Final Result; ${userName} wins`)
+          : (p[4].textContent = `Final Result; ${userName} lost`);
       }
       nameInput.value = "";
     } else {
-      questions.innerHTML = "Wrong Spellings";
+      questions.textContent = "Wrong Spellings";
     }
   }
 }
@@ -164,7 +168,7 @@ function compareVals() {
 var userWins = () => {
   console.log(`usermove inside userwins is ${userMove}`);
   computerMove = moves[Math.floor(Math.random() * moves.length)];
-  p[2].innerText = `My move: ${computerMove}, your move: ${userMove}`;
+  p[1].textContent = `My move: ${computerMove}, your move: ${userMove}`;
   console.log(`computer move is ${computerMove} and user move is ${userMove}`);
   return (
     (userMove === "rock" && computerMove === "scissors") ||
@@ -173,16 +177,15 @@ var userWins = () => {
   );
 };
 
-
 //To start the game again without reloading the page
 let gameCounter = 1;
 playAgainBtn.addEventListener("click", () => {
-  p[0].innerText = `Set number ${++gameCounter}`;
+  p[0].textContent = `Set number ${++gameCounter}`;
   enterName();
   modalBox.style.display = "block";
   playAgainBtn.style.display = "none";
-  p[1].innerText = ``;
-  p[2].innerText = ``;
+  p[1].textContent = ``;
+  p[2].textContent = ``;
   okBtn.disabled = false;
   location.reload();
 });
